@@ -59,7 +59,17 @@ def save_dataframe(df, filename):
     return True
 
 def load_dataframe(filename):
-    """Load a dataframe from the database based on filename"""
+    """Load a dataframe from the database based on filename and current farm"""
+    # For datos_generales.csv, always show all farms
+    if filename == "datos_generales.csv":
+        return db.get_farm_data()
+    
+    # For other files, filter by current farm if one is selected
+    if "farm_id" in st.session_state:
+        farm_id = st.session_state.farm_id
+    else:
+        farm_id = None
+        
     # Map filename to the appropriate database function
     file_to_func = {
         'datos_generales.csv': db.get_farm_data,

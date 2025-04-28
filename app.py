@@ -59,10 +59,9 @@ with st.sidebar:
     """, unsafe_allow_html=True)
     
     # Main menu
-    menu_selection = option_menu(
-        "Menú Principal",
-        [
-            "🏡 Inicio",
+    menu_items = ["🏡 Inicio"]
+    if "farm_name" in st.session_state and st.session_state.farm_name:
+        menu_items.extend([
             "📋 Datos Generales",
             "🌱 Superficies e Insumos",
             "🛠️ Manejo y Recursos",
