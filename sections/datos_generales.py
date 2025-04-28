@@ -171,8 +171,13 @@ def show_datos_generales():
                 sup_total = st.number_input("Superficie Total (ha)", min_value=0.0, value=float(sup_total) if sup_total != "" else 0.0, format="%.2f")
             
             with col2:
-                sup_vt = st.number_input("Superficie Vacas Totales (ha)", min_value=0.0, max_value=float(sup_total) if sup_total else float('inf'), 
-                                        value=float(sup_vt) if sup_vt != "" else 0.0, format="%.2f")
+                max_val = float(sup_total) if sup_total and float(sup_total) > 0 else 1e6
+                sup_vt = st.number_input("Superficie Vacas Totales (ha)", 
+                                        min_value=0.0, 
+                                        max_value=max_val,
+                                        value=float(sup_vt) if sup_vt != "" else 0.0, 
+                                        format="%.2f",
+                                        help="No puede ser mayor que la superficie total")
             
             st.subheader("Producción")
             col1, col2 = st.columns(2)
