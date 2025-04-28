@@ -283,15 +283,17 @@ def export_to_excel(farm_id=None, all_farms=False):
     from st_aggrid.grid_options_builder import GridOptionsBuilder
     
     # Get current farm data and combine into one table
-    current_farm_id = st.session_state.get('farm_id')
+    current_farm_name = st.session_state.get('farm_name', '')
     all_data = get_all_data()
     combined_data = []
     
     for section_name, df in all_data.items():
         if not df.empty:
-            # Filter for current farm if applicable
-            if 'farm_id' in df.columns and current_farm_id:
-                df = df[df['farm_id'] == current_farm_id]
+            # Filter for current farm name
+            if 'nombre_tambo' in df.columns:
+                df = df[df['nombre_tambo'] == current_farm_name]
+            elif section_name != 'datos_generales':  # For other sections, keep all rows as they belong to current farm
+                pass
             
             # Remove technical columns
             for col in ['uuid', 'farm_id']:
