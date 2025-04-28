@@ -61,8 +61,10 @@ def show_datos_generales():
         * **Porcentaje de Grasa**: {data['porcentaje_grasa']:.2f}%
         """)
         
-        # Add confirmation button
-        if st.button("📝 Confirmar y guardar", key="confirm_datos", type="primary"):
+        # Add confirmation and back buttons
+        col1, col2 = st.columns(2)
+        with col1:
+            if st.button("📝 Confirmar y guardar", key="confirm_datos", type="primary"):
             # Create dataframe
             new_df = pd.DataFrame([data])
             
@@ -81,6 +83,11 @@ def show_datos_generales():
             
             # Rerun to refresh the app
             st.rerun()
+        
+        with col2:
+            if st.button("↩ Volver y editar", key="back_datos"):
+                st.session_state.show_datos_summary = False
+                st.rerun()
         
         # Add back button
         if st.button("↩ Volver y editar", key="back_datos"):
