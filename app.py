@@ -2,6 +2,7 @@ import streamlit as st
 import os
 import pandas as pd
 from streamlit_option_menu import option_menu
+import database as db
 
 # Import sections
 from sections.home import show_home
@@ -21,7 +22,10 @@ from sections.resumen_rebano import show_resumen_rebano
 # Import export functions
 from exporters import export_to_word, export_to_excel
 
-# Ensure data directory exists
+# Initialize database
+db.create_tables()
+
+# Ensure data directory exists (for backward compatibility)
 if not os.path.exists("data"):
     os.makedirs("data")
 
