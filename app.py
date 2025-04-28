@@ -79,9 +79,12 @@ with st.sidebar:
         ])
     
     selected = option_menu(
-        "Menú Principal",
-        menu_items,
-        default_index=0
+        menu_title="Menú Principal",
+        options=menu_items,
+        default_index=0,
+        icons=[],
+        menu_icon="cast",
+        orientation="vertical"
     )
     
     st.session_state.current_section = selected
