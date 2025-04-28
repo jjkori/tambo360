@@ -4,7 +4,7 @@ import os
 from datetime import datetime
 import base64
 from io import BytesIO
-from docx.api import Document
+from docx import Document
 from docx.shared import Pt, RGBColor, Inches
 import xlsxwriter
 from utils import get_all_data, check_data_exists, format_filename
