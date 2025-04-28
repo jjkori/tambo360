@@ -62,6 +62,20 @@ def show_datos_generales():
             raza = st.selectbox("Raza predominante", 
                                options=["Holstein", "Jersey", "Cruza", "Otro"],
                                index=["Holstein", "Jersey", "Cruza", "Otro"].index(raza) if raza in ["Holstein", "Jersey", "Cruza", "Otro"] else 0)
+            
+            st.subheader("Ubicación GPS")
+            latitud = st.number_input("Latitud", 
+                                    min_value=-90.0, 
+                                    max_value=90.0, 
+                                    value=float(latest_data.get('latitud', 0)) if has_existing_data else 0.0,
+                                    format="%.6f",
+                                    help="Ingrese la latitud en grados decimales")
+            longitud = st.number_input("Longitud", 
+                                     min_value=-180.0, 
+                                     max_value=180.0, 
+                                     value=float(latest_data.get('longitud', 0)) if has_existing_data else 0.0,
+                                     format="%.6f",
+                                     help="Ingrese la longitud en grados decimales")
         
         with col2:
             año = st.number_input("Año", min_value=2000, max_value=2100, value=año)
@@ -165,6 +179,8 @@ def show_datos_generales():
                 'nombre_tambo': nombre_tambo,
                 'ciudad': ciudad,
                 'raza': raza,
+                'latitud': latitud,
+                'longitud': longitud,
                 'año': año,
                 'mes': mes,
                 'sup_total': sup_total,
