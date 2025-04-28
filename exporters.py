@@ -268,3 +268,40 @@ def export_to_excel():
     )
     
     st.info("📊 Este archivo Excel contiene todos los datos recolectados, organizados por secciones en diferentes hojas.")
+    
+    # Display all data in a user-friendly table
+    st.subheader("Vista de Datos Recolectados")
+    
+    # Get all data and combine into one table
+    all_data = get_all_data()
+    combined_data = []
+    
+    for section_name, df in all_data.items():
+        if not df.empty:
+            # Remove UUID column if present
+            if 'uuid' in df.columns:
+                df = df.drop(columns=['uuid'])
+            
+            # Add section information to each row
+            for _, row in df.iterrows():
+                row_dict = row.to_dict()
+                row_dict['Sección'] = section_name.replace('_', ' ').title()
+                combined_data.append(row_dict)
+    
+    if combined_data:
+        # Create combined dataframe
+        combined_df = pd.DataFrame(combined_data)
+        
+        # Reorder columns to show section first
+        cols = ['Sección'] + [col for col in combined_df.columns if col != 'Sección']
+        combined_df = combined_df[cols]
+        
+        # Display the table with custom styling
+        st.dataframe(
+            combined_df,
+            use_container_width=True,
+            height=400,
+            hide_index=True
+        )
+    else:
+        st.warning("No hay datos disponibles para mostrar.")
