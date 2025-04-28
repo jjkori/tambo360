@@ -3,9 +3,37 @@ import pandas as pd
 import streamlit as st
 import uuid
 import re
+import database as db
 
 def save_dataframe(df, filename):
-    """Save a dataframe to a CSV file in the data directory"""
+    """Save a dataframe to the database based on filename"""
+    # Map filename to the appropriate database function
+    if 'uuid' not in df.columns:
+        df['uuid'] = generate_uuid()
+    
+    file_to_func = {
+        'datos_generales.csv': db.add_farm,
+        'superficies_insumos.csv': db.add_surface,
+        'manejo.csv': db.add_management,
+        'fertilizacion.csv': db.add_fertilization,
+        'proteccion_cultivos.csv': db.add_crop_protection,
+        'riego.csv': db.add_irrigation,
+        'energia.csv': db.add_energy,
+        'rebano.csv': db.add_herd,
+        'efluentes.csv': db.add_effluent,
+        'transporte.csv': db.add_transport
+    }
+    
+    # Get the appropriate database function
+    db_func = file_to_func.get(filename)
+    if db_func:
+        # Convert dataframe to dictionary
+        data = df.iloc[0].to_dict()
+        # Call the appropriate database function
+        db_func(data)
+        return True
+    
+    # Fallback to file-based storage for backward compatibility
     if not os.path.exists("data"):
         os.makedirs("data")
     
@@ -31,7 +59,27 @@ def save_dataframe(df, filename):
     return True
 
 def load_dataframe(filename):
-    """Load a dataframe from a CSV file in the data directory"""
+    """Load a dataframe from the database based on filename"""
+    # Map filename to the appropriate database function
+    file_to_func = {
+        'datos_generales.csv': db.get_farm_data,
+        'superficies_insumos.csv': db.get_surfaces_data,
+        'manejo.csv': db.get_management_data,
+        'fertilizacion.csv': db.get_fertilization_data,
+        'proteccion_cultivos.csv': db.get_crop_protection_data,
+        'riego.csv': db.get_irrigation_data,
+        'energia.csv': db.get_energy_data,
+        'rebano.csv': db.get_herd_data,
+        'efluentes.csv': db.get_effluent_data,
+        'transporte.csv': db.get_transport_data
+    }
+    
+    # Get the appropriate database function
+    db_func = file_to_func.get(filename)
+    if db_func:
+        return db_func()
+    
+    # Fallback to file-based storage for backward compatibility
     file_path = os.path.join("data", filename)
     if os.path.exists(file_path):
         return pd.read_csv(file_path)
@@ -91,32 +139,9 @@ def format_filename(farm_name):
     return re.sub(r'[^\w\s]', '', farm_name).replace(' ', '_').lower()
 
 def get_all_data():
-    """Get all CSV data files as a dictionary of dataframes"""
-    data_files = {
-        'datos_generales': load_dataframe('datos_generales.csv'),
-        'superficies_insumos': load_dataframe('superficies_insumos.csv'),
-        'manejo': load_dataframe('manejo.csv'),
-        'fertilizacion': load_dataframe('fertilizacion.csv'),
-        'proteccion_cultivos': load_dataframe('proteccion_cultivos.csv'),
-        'riego': load_dataframe('riego.csv'),
-        'energia': load_dataframe('energia.csv'),
-        'rebano': load_dataframe('rebano.csv'),
-        'efluentes': load_dataframe('efluentes.csv'),
-        'transporte': load_dataframe('transporte.csv')
-    }
-    return data_files
+    """Get all data from database"""
+    return db.get_all_data()
 
 def check_data_exists():
     """Check if any data has been collected"""
-    data_folder = "data"
-    if not os.path.exists(data_folder):
-        return False
-    
-    # Check if any CSV files exist and have content
-    csv_files = [f for f in os.listdir(data_folder) if f.endswith('.csv')]
-    for csv_file in csv_files:
-        df = pd.read_csv(os.path.join(data_folder, csv_file))
-        if not df.empty:
-            return True
-    
-    return False
+    return db.check_data_exists()
