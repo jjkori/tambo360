@@ -154,23 +154,18 @@ def export_to_word():
     st.info("📝 Nota: Para obtener una versión PDF, descargue el documento Word y conviértalo a PDF con su programa preferido.")
 
 
-def export_to_excel():
-    """Generate and download an Excel file with all data"""
-    st.title("Exportar Datos Completos a Excel")
+def export_to_excel(farm_id=None, all_farms=False):
+    """Generate and download an Excel file with farm data"""
+    st.title("Exportar Datos a Excel")
     
     if not check_data_exists():
         st.warning("⚠️ No hay datos para exportar. Por favor complete al menos una sección.")
         return
-    
-    # Get farm name from datos_generales if available
-    datos_df = pd.DataFrame()
-    if os.path.exists("data/datos_generales.csv"):
-        datos_df = pd.read_csv("data/datos_generales.csv")
-    
+        
     farm_name = "tambo"
-    if not datos_df.empty and 'nombre_tambo' in datos_df.columns:
-        farm_name = datos_df['nombre_tambo'].iloc[0]
-    
+    if "farm_name" in st.session_state:
+        farm_name = st.session_state.farm_name
+        
     safe_farm_name = format_filename(farm_name)
     excel_filename = f"FieldLens_{safe_farm_name}_{datetime.now().strftime('%Y%m%d')}.xlsx"
     
@@ -267,41 +262,71 @@ def export_to_excel():
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     )
     
-    st.info("📊 Este archivo Excel contiene todos los datos recolectados, organizados por secciones en diferentes hojas.")
+    col1, col2 = st.columns([2, 1])
+    with col1:
+        st.download_button(
+            label="📥 Exportar Datos del Tambo Actual",
+            data=excel_io,
+            file_name=excel_filename,
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        )
+    with col2:
+        if st.button("📊 Exportar Todos los Tambos"):
+            export_to_excel(all_farms=True)
     
-    # Display all data in a user-friendly table
+    st.info("📊 Los datos se exportarán organizados por secciones en diferentes hojas de Excel.")
+    
+    # Display current farm data in a user-friendly table
     st.subheader("Vista de Datos Recolectados")
     
-    # Get all data and combine into one table
+    from st_aggrid import AgGrid, GridOptionsBuilder
+    from st_aggrid.grid_options_builder import GridOptionsBuilder
+    
+    # Get current farm data and combine into one table
+    current_farm_id = st.session_state.get('farm_id')
     all_data = get_all_data()
     combined_data = []
     
     for section_name, df in all_data.items():
         if not df.empty:
-            # Remove UUID column if present
-            if 'uuid' in df.columns:
-                df = df.drop(columns=['uuid'])
+            # Filter for current farm if applicable
+            if 'farm_id' in df.columns and current_farm_id:
+                df = df[df['farm_id'] == current_farm_id]
             
-            # Add section information to each row
-            for _, row in df.iterrows():
-                row_dict = row.to_dict()
-                row_dict['Sección'] = section_name.replace('_', ' ').title()
-                combined_data.append(row_dict)
+            # Remove technical columns
+            for col in ['uuid', 'farm_id']:
+                if col in df.columns:
+                    df = df.drop(columns=[col])
+            
+            # Add section information
+            if not df.empty:
+                df['Sección'] = section_name.replace('_', ' ').title()
+                combined_data.append(df)
     
     if combined_data:
-        # Create combined dataframe
-        combined_df = pd.DataFrame(combined_data)
+        combined_df = pd.concat(combined_data, ignore_index=True)
         
-        # Reorder columns to show section first
-        cols = ['Sección'] + [col for col in combined_df.columns if col != 'Sección']
-        combined_df = combined_df[cols]
+        # Configure grid options
+        gb = GridOptionsBuilder.from_dataframe(combined_df)
+        gb.configure_default_column(
+            groupable=True,
+            value=True,
+            enableRowGroup=True,
+            aggFunc='sum',
+            editable=False
+        )
+        gb.configure_grid_options(domLayout='normal')
+        gb.configure_side_bar()
         
-        # Display the table with custom styling
-        st.dataframe(
+        # Create grid
+        grid_response = AgGrid(
             combined_df,
-            use_container_width=True,
-            height=400,
-            hide_index=True
+            gridOptions=gb.build(),
+            enable_enterprise_modules=True,
+            update_mode='MODEL_CHANGED',
+            data_return_mode='FILTERED',
+            theme='streamlit',
+            height=500
         )
     else:
         st.warning("No hay datos disponibles para mostrar.")

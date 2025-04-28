@@ -686,6 +686,15 @@ wheels = [
 ]
 
 [[package]]
+name = "python-decouple"
+version = "3.8"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/e1/97/373dcd5844ec0ea5893e13c39a2c67e7537987ad8de3842fe078db4582fa/python-decouple-3.8.tar.gz", hash = "sha256:ba6e2657d4f376ecc46f77a3a615e058d93ba5e465c01bbe57289bfb7cce680f", size = 9612 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a2/d4/9193206c4563ec771faf2ccf54815ca7918529fe81f6adb22ee6d0e06622/python_decouple-3.8-py3-none-any.whl", hash = "sha256:d0d45340815b25f4de59c974b855bb38d03151d81b037d9e3f463b0c9f8cbd66", size = 9947 },
+]
+
+[[package]]
 name = "python-docx"
 version = "1.1.2"
 source = { registry = "https://pypi.org/simple" }
@@ -769,6 +778,7 @@ dependencies = [
     { name = "python-docx" },
     { name = "sqlalchemy" },
     { name = "streamlit" },
+    { name = "streamlit-aggrid" },
     { name = "streamlit-option-menu" },
     { name = "xlsxwriter" },
 ]
@@ -783,6 +793,7 @@ requires-dist = [
     { name = "python-docx", specifier = ">=1.1.2" },
     { name = "sqlalchemy", specifier = ">=2.0.40" },
     { name = "streamlit", specifier = ">=1.44.1" },
+    { name = "streamlit-aggrid", specifier = ">=1.1.4.post1" },
     { name = "streamlit-option-menu", specifier = ">=0.4.0" },
     { name = "xlsxwriter", specifier = ">=3.2.3" },
 ]
@@ -967,6 +978,20 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/3e/c0/7286284567e5045f0c587c426d0c41aee5d10c0a2e360e627a83037e9f0c/streamlit-1.44.1.tar.gz", hash = "sha256:c6914ed6d5b76870b461510476806db370f36425ae0e6654d227c988288198d3", size = 9423685 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/eb/17/fc425e1d4d86e31b2aaf0812a2ef2163763a0670d671720c7c36e8679323/streamlit-1.44.1-py3-none-any.whl", hash = "sha256:9fe355f58b11f4eb71e74f115ce1f38c4c9eaff2733e6bcffb510ac1298a5990", size = 9812242 },
+]
+
+[[package]]
+name = "streamlit-aggrid"
+version = "1.1.4.post1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pandas" },
+    { name = "python-decouple" },
+    { name = "streamlit" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/e9/5e/28d266fafdda1fcd76a07d384763aa3d4893a4b34951e6865b7dbbee8b2c/streamlit_aggrid-1.1.4.post1.tar.gz", hash = "sha256:5f32284701a0f180c11690f5e9100b049b58f20860aaea9d1dd1f7d2d5be8995", size = 4883271 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/fe/cb/f58f2e278273389c84d370501e6c43c1ea77396b85dabcdf62a300558f81/streamlit_aggrid-1.1.4.post1-py3-none-any.whl", hash = "sha256:4d7d571fb30da6654f3037ada2ce79889feb89da114106f1e5eb30826adaceab", size = 4935068 },
 ]
 
 [[package]]
