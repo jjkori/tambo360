@@ -1,0 +1,97 @@
+Tengo una app de recolección de datos en tambos (establecimientos lecheros) desarrollada en Streamlit.
+
+La app actual se llama FieldLens.
+
+📦 Estructura general de la app:
+- `app.py`: archivo principal que maneja el sidebar, el flujo de navegación, y llama a las secciones.
+- `sections/`: carpeta modular con cada sección por separado. Cada sección tiene:
+  - Formulario de inputs.
+  - Memoria en `st.session_state`.
+  - Guardado de datos en CSV local bajo la carpeta `data/`.
+  - (En versión futura, sincronización a nube por usuario y farm).
+- `assets/`: logos y diseños.
+- `data/`: carpeta donde se almacenan archivos CSV con la data ingresada.
+
+🌐 Interfaz:
+- Estilo dark minimalista.
+- Menú lateral ordenado: Inicio, secciones de datos, dashboards, exportaciones.
+- Home inicial (FieldLens) con instrucciones rápidas.
+- Dashboards visuales (resumen rebaño, dashboard general).
+- Exportación Word + PDF y Exportación Excel completa.
+
+---
+
+## 🧩 Secciones activas:
+
+- Inicio (🏡)
+- Datos Generales
+- Superficies e Insumos
+- Manejo y Recursos
+- Fertilización
+- Protección de Cultivos
+- Riego / Uso de Agua
+- Energía
+- Rebaño
+- Resumen Rebaño
+- Gestión de Efluentes
+- Transporte
+- 📊 Dashboard General
+- 📈 Resumen General
+- 📝 Exportar Reporte Word + PDF
+- 📤 Exportar Excel completo
+
+---
+
+## 📚 Funcionalidades técnicas implementadas:
+
+✅ Formularios validados sección por sección.  
+✅ Guardado seguro en CSVs locales.  
+✅ Session State para memoria de carga.  
+✅ Dashboards automáticos de resumen.  
+✅ Exportación de toda la data en Word, PDF y Excel.  
+✅ Carpeta de estructura lista para escalar.
+
+---
+
+## 🚀 Mejoras planeadas (versión 2.0):
+
+1. **Sistema de login** simple: usuario y empresa.
+2. **Sistema de selección o creación de Farm** (establecimiento) asociado a user y cliente.
+3. **Botón Recolectar Datos**: inicia la recolección en sesión nueva.
+4. **Guardar datos** en `data/cliente/usuario/farm/`.
+5. **Sistema mixto de guardado**: sesión + local + nube (más adelante).
+6. **Sincronización offline/online**.
+7. **Mejor UX/UI móvil** para uso con una mano y en campo.
+8. **Optimización de flujos para técnicos**: minimizar cantidad de toques necesarios.
+
+---
+
+## 🛠️ Aspectos técnicos a mantener:
+
+- Python 3.11
+- Streamlit última versión
+- Pandas para manejo de data
+- Docx y xlsxwriter para generación de reportes
+- Carpeta `/data/` autogestionada
+- Modularización clara de las secciones
+
+---
+
+## ✨ Resultado que deseo:
+
+- Una **super app** que permita a un técnico de campo:
+  - Crear un tambo (farm) en 1 click.
+  - Recolectar datos de manera ordenada.
+  - Visualizar dashboards resumidos.
+  - Exportar informes profesionales.
+  - Trabajar incluso sin conexión.
+  - Subir después los datos si es necesario.
+
+**La app ya funciona, solo quiero optimizar, escalar y preparar el salto a mobile/webapp PWA si es posible.**
+
+---
+
+💬 **Puedo pasar el ZIP completo si Replit AI necesita analizar los archivos.**  
+
+**¿Listo para ayudarme a evolucionar FieldLens? 🚀**
+

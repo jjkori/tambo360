@@ -1,0 +1,196 @@
+¡Entiendo perfecto, Julius! 🔥  
+Querés **un prompt detallado para Replit o cualquier IA** que diga **sección por sección, métrica por métrica, unidad**, para que no inventen y respete tu app original.
+
+Te armo **el prompt perfecto**:
+
+---
+
+# 📦 PROMPT COMPLETO FIELDLENS PARA REPLIT
+
+> 🛠️ Quiero que construyas una app en Streamlit, siguiendo estrictamente esta estructura y contenido.
+
+---
+
+# 🐄 App Name: **FieldLens - Recolección de Datos en Tambos**
+
+---
+
+## 🏡 Inicio
+- Logo
+- Título: "App de Recolección de Datos en Tambos"
+- Subtítulo: "FieldLens - Data collection, reimagined for agriculture"
+- Instrucciones rápidas:
+  - Seleccioná una sección en el menú lateral
+  - Cargá la información
+  - Se guarda automáticamente
+  - Se puede exportar reporte a Word + PDF
+- Firma: by Cultura CŌW | Design by La Vaca Studio
+- Tip verde: “📍 Tip: empezá por 'Datos Generales' si es tu primera vez.”
+
+---
+
+## 📋 Secciones
+
+### 1. Datos Generales
+**Métricas:**
+- `nombre_tambo` (texto)
+- `ciudad` (texto)
+- `raza` (selección: Holstein, Jersey, Cruza, Otro)
+- `año` (número: 2000-2100)
+- `mes` (desplegable: Enero, Febrero, … Diciembre)
+- `sup_total` (número decimal, ha)
+- `sup_vt` (número decimal, ha)
+- `produccion_ind` (número decimal, litros/vaca/día)
+- `vacas_ordeñe` (número entero)
+- `venta_industria` (%)
+- `uso_queseria` (%)
+- `descarte` (%)
+- `porcentaje_proteina` (%)
+- `porcentaje_grasa` (%)
+
+📦 Guarda en: `data/datos_generales.csv`
+
+---
+
+### 2. Superficies e Insumos
+**Métricas:**
+- `cultivo` (texto)
+- `temporada` (invierno/verano/anual)
+- `hectareas` (número decimal, ha)
+- `productividad_materia_verde` (kg/ha)
+- `residuos_generados` (kg/ha)
+- `destino_residuos` (selección)
+
+📦 Guarda en: `data/superficies_insumos.csv`
+
+---
+
+### 3. Manejo y Recursos
+**Métricas:**
+- `tipo_labranza` (selección: Convencional, Reducida, Directa)
+- `proporción_cobertura` (%) 
+- `proporción_suelo_sin_cobertura` (%) 
+- `manejo_suelos_cambios` (sí/no)
+- `año_cambio_manejo` (número)
+
+📦 Guarda en: `data/manejo.csv`
+
+---
+
+### 4. Fertilización
+**Métricas:**
+- `área` (selección: Pastura, Verdeo, Maíz, Soja)
+- `hectareas` (número decimal, ha)
+- `tipo` (texto)
+- `%_área_total` (%)
+- `cantidad_aplicada_kg_ha` (kg/ha)
+- `cantidad_aplicada_total` (kg)
+- `método_aplicación` (selección: Incorporado, Al voleo, Otro)
+- `uso_inhibidores` (sí/no)
+- `urea_protegida` (sí/no)
+- `ajuste_por_N` (sí/no)
+
+📦 Guarda en: `data/fertilizacion.csv`
+
+---
+
+### 5. Protección de Cultivos
+**Métricas:**
+- `área` (texto)
+- `producto` (texto)
+- `categoría` (herbicida, insecticida, funguicida, otro)
+- `tipo_aplicacion` (preemergente, postemergente)
+- `%_ingrediente_activo` (%)
+- `dosis` (kg o L por ha)
+- `ingrediente_activo` (texto)
+
+📦 Guarda en: `data/proteccion_cultivos.csv`
+
+---
+
+### 6. Riego / Uso de Agua
+**Métricas:**
+- `tipo_fuente` (pozo, río, canal, otro)
+- `consumo_total` (m³/año)
+- `uso_para_bebida` (%) 
+- `uso_para_limpieza` (%)
+- `permiso_agua` (sí/no)
+- `monitoreo_riego` (sí/no)
+- `eventos_riego` (texto breve)
+
+📦 Guarda en: `data/riego.csv`
+
+---
+
+### 7. Energía
+**Métricas:**
+- `consumo_diesel` (L/año)
+- `consumo_gasolina` (L/año)
+- `consumo_GNC` (m³/año)
+- `consumo_electricidad` (kWh/año)
+
+📦 Guarda en: `data/energia.csv`
+
+---
+
+### 8. Rebaño
+**Métricas:**
+- `categoría` (Guachera, Vaquillonas, Vacas, etc.)
+- `número_animales` (número entero)
+- `peso_promedio` (kg)
+- `horas_pastoreo` (horas/día)
+- `dieta_materia_seca` (kg materia seca/animal/día)
+
+📦 Guarda en: `data/rebano.csv`
+
+---
+
+### 9. Gestión de Efluentes
+**Métricas:**
+- `sector` (ordeñe, corral, galpón, pastura)
+- `horas_dia` (horas)
+- `manejo_excretas` (selección: Almacenaje sólidos, Laguna anaeróbica, etc.)
+- `eficiencia_separación` (%)
+
+📦 Guarda en: `data/efluentes.csv`
+
+---
+
+### 10. Transporte
+**Métricas:**
+- `producto_transportado` (texto)
+- `inicio` (texto)
+- `destino` (texto)
+- `distancia_km` (km)
+
+📦 Guarda en: `data/transporte.csv`
+
+---
+
+## 📤 Exportaciones
+- Dashboard General (con tablas y gráficos)
+- Resumen Rebaño
+- Exportar a Word + Generar PDF
+- Exportar a Excel Completo (todos los CSV unidos)
+
+---
+
+# 📌 Notas técnicas
+- Todos los formularios usan `st.form()`
+- Validar campos esenciales
+- Guardar en `st.session_state` + luego en CSV en `/data`
+- Preparado para evolución a login/usuarios/farms
+- No mezclar unidades ni formatos
+
+---
+
+# 🎨 Diseño
+- Minimalista
+- Estilo mobile first
+- Oscuro, elegante, intuitivo
+- Botones claros: Confirmar / Cancelar / Volver / Exportar
+
+---
+
+¿Quieres que también te prepare en paralelo un diagrama de flujo visual 🔥 para que lo pegues en Replit o en Miro tipo esquema de la app? 🚀  
+¿Lo hago?
