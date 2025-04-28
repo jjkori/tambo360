@@ -7,7 +7,19 @@ import datetime
 import uuid
 
 # Create engine using the DATABASE_URL environment variable
-engine = create_engine(os.environ['DATABASE_URL'])
+try:
+    # Try to connect with SSL parameters first
+    engine = create_engine(os.environ['DATABASE_URL'], connect_args={'sslmode': 'require'})
+except Exception as e:
+    try:
+        # Try with SSL disabled if first attempt fails
+        engine = create_engine(os.environ['DATABASE_URL'], connect_args={'sslmode': 'disable'})
+    except Exception as e:
+        # Fallback to a SQLite database if PostgreSQL connection fails
+        print(f"Database connection error: {e}")
+        db_path = os.path.join(os.path.dirname(__file__), 'data', 'fieldlens.db')
+        os.makedirs(os.path.dirname(db_path), exist_ok=True)
+        engine = create_engine(f"sqlite:///{db_path}")
 
 # Create declarative base
 Base = declarative_base()

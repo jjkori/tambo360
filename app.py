@@ -76,11 +76,15 @@ with st.sidebar:
             "📈 Dashboard General",
             "📄 Exportar Word + PDF",
             "📊 Exportar Excel",
-        ],
-        default_index=0,
+        ])
+    
+    selected = option_menu(
+        "Menú Principal",
+        menu_items,
+        default_index=0
     )
     
-    st.session_state.current_section = menu_selection
+    st.session_state.current_section = selected
     
     # Display farm name if set
     if st.session_state.farm_name:
