@@ -62,7 +62,7 @@ if st.session_state.show_tour:
         """)
         if st.button("Entendido, ¡Comenzar!"):
             st.session_state.show_tour = False
-            st.experimental_rerun()
+            st.rerun()
 
 # Sidebar with navigation
 with st.sidebar:
