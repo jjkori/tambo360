@@ -44,6 +44,26 @@ if "current_section" not in st.session_state:
 if "farm_name" not in st.session_state:
     st.session_state.farm_name = ""
 
+# First time user tour
+if "show_tour" not in st.session_state:
+    st.session_state.show_tour = True
+
+if st.session_state.show_tour:
+    tour = st.sidebar.empty()
+    with tour.container():
+        st.markdown("## 👋 ¡Bienvenido a FieldLens!")
+        st.markdown("""
+        ### Tour Rápido:
+        1. 🏡 **Inicio**: Crea o selecciona un establecimiento
+        2. 📋 **Datos Generales**: Completa la información básica
+        3. 🌱 **Secciones**: Navega por las diferentes áreas de recolección
+        4. 📊 **Dashboard**: Visualiza los datos recolectados
+        5. 📑 **Exportar**: Genera reportes en Excel o Word
+        """)
+        if st.button("Entendido, ¡Comenzar!"):
+            st.session_state.show_tour = False
+            st.experimental_rerun()
+
 # Sidebar with navigation
 with st.sidebar:
     st.markdown("<h1 style='text-align: center;'>FieldLens</h1>", unsafe_allow_html=True)
