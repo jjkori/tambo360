@@ -1,0 +1,25 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4380fa" />
+      <stop offset="100%" stop-color="#43c6fa" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Outer circle -->
+  <circle cx="100" cy="100" r="90" fill="none" stroke="url(#logo-gradient)" stroke-width="8" />
+  
+  <!-- Lens shape -->
+  <ellipse cx="100" cy="100" rx="60" ry="40" fill="none" stroke="url(#logo-gradient)" stroke-width="8" transform="rotate(45, 100, 100)" />
+  
+  <!-- Field lines -->
+  <line x1="60" y1="100" x2="140" y2="100" stroke="url(#logo-gradient)" stroke-width="4" />
+  <line x1="100" y1="60" x2="100" y2="140" stroke="url(#logo-gradient)" stroke-width="4" />
+  
+  <!-- Data points -->
+  <circle cx="80" cy="80" r="6" fill="#4380fa" />
+  <circle cx="120" cy="80" r="6" fill="#4380fa" />
+  <circle cx="80" cy="120" r="6" fill="#4380fa" />
+  <circle cx="120" cy="120" r="6" fill="#4380fa" />
+  <circle cx="100" cy="100" r="8" fill="#43c6fa" />
+</svg>
