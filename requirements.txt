@@ -1,0 +1,5 @@
+streamlit==1.23.0
+sqlalchemy
+pandas
+streamlit-option-menu
+pyarrow
