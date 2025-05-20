@@ -28,7 +28,7 @@ numpy==1.26.4
 packaging==23.2
 pandas==2.2.2
 Pillow==9.5.0
-plotly==6.0.1
+plotly>=5.0.0,<6.1.0
 protobuf==4.25.7
 psycopg2-binary==2.9.10
 pyarrow==19.0.1
@@ -64,4 +64,3 @@ watchdog==6.0.0
 XlsxWriter==3.2.0
 zipp==3.21.0
 zope.interface==7.2
-plotly==5.x.x
